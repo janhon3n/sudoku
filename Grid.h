@@ -4,7 +4,6 @@
 #include <array>
 #include <cstdlib>
 #include <ctime>
-#include <stack>
 
 #define EMPTY ' '
 #define GRID_SIZE 9
