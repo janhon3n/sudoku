@@ -37,13 +37,11 @@ bool Grid::init_sudoku() {
                 //swaps with number_array.at(index) and swap_location
                 find_replacement(number_array.at(index), current_location);
                 try_count++;
-                std::cout << std::endl;
                 reset_index(index);
             }
             if(try_count >= GRID_SIZE)
                 return false;
         }
-        //display_grid();
     }
     return true;
 }
@@ -141,47 +139,6 @@ bool Grid::check_row(char &number, Coor current_location) {
         grid.at(swap_location.y).at(j) = temp;
         if(match == 2) {
             swap<char>(grid.at(swap_location.y).at(j), number);
-            std::cout << "SWAPPED: " << grid.at(swap_location.y).at(j)
-            << " " << number << " COLUMN: " << current_location.y << std::endl;
-            return true;
-        }
-    }
-    return false;
-}
-
-void Grid::track_number(char &number, Coor &current_location) {
-    grid.at(current_location.y).at(current_location.x) = number;
-    int success {0};
-    while(success < 2) {
-        success = 0;
-        if(track_column(number, current_location)) {
-            number = replace_with_valid_value(current_location, COLUMN);
-            grid.at(current_location.y).at(current_location.x) = number;
-            success++;
-        }
-        if(track_row(number, current_location)) {
-            number = replace_with_valid_value(current_location, ROW);
-            grid.at(current_location.y).at(current_location.x) = number;
-            success++;
-        }
-    }
-    display_grid();
-}
-
-bool Grid::track_column(const char &number, Coor &current_location) {
-    for(int i {0}; i < GRID_SIZE; i++) {
-        if(grid.at(i).at(current_location.x) == number) {
-            current_location = init_coordinates(current_location.x, i);
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Grid::track_row(const char &number, Coor &current_location) {
-    for(int j {0}; j < GRID_SIZE; j++) {
-        if(grid.at(current_location.y).at(j) == number) {
-            current_location = init_coordinates(j, current_location.y);
             return true;
         }
     }
@@ -237,7 +194,7 @@ void Grid::init_from_one_to_nine(std::array<char, GRID_SIZE> &temp_array) {
 }
 
 void Grid::shuffle(std::array<char, GRID_SIZE> &number_array) {
-    size_t i = 0;
+    size_t i {0};
     while(i < number_array.size()) {
         size_t random_index = rand() % GRID_SIZE;
         swap<char>(number_array.at(i), number_array.at(random_index));
@@ -270,5 +227,4 @@ void Grid::swap(T &i, T &j) {
     T temp = i;
     i = j;
     j = temp;
-
 }

@@ -36,9 +36,6 @@ class Grid {
         bool find_replacement(char &number, Coor current_location);
         bool check_row(char &number, Coor current_location);
 
-        void track_number(char &number, Coor &current_location);
-        bool track_column(const char &number, Coor &current_location);
-        bool track_row(const char &number, Coor &current_location);
         char replace_with_valid_value(Coor &current_location, const int direction);
 
         void reset_number_array(std::array<char, GRID_SIZE> &number_array);
